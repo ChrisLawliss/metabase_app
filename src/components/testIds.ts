@@ -3,6 +3,7 @@ export const testIds = {
     container: 'data-testid ac-container',
     apiKey: 'data-testid ac-api-key',
     apiUrl: 'data-testid ac-api-url',
+    companyName: 'data-testid ac-company-name',
     submit: 'data-testid ac-submit-form',
   },
   pageOne: {

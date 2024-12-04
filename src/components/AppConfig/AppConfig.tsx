@@ -9,6 +9,7 @@ import { lastValueFrom } from 'rxjs';
 export type JsonData = {
   apiUrl?: string;
   isApiKeySet?: boolean;
+  companyName?: string;
 };
 
 type State = {
@@ -20,6 +21,8 @@ type State = {
   isApiKeySet: boolean;
   // An secret key for our custom API.
   apiKey: string;
+  // The name of the company.
+  companyName: string;
 };
 
 export interface AppConfigProps extends PluginConfigPageProps<AppPluginMeta<JsonData>> {}
@@ -31,6 +34,7 @@ const AppConfig = ({ plugin }: AppConfigProps) => {
     apiUrl: jsonData?.apiUrl || '',
     apiKey: '',
     isApiKeySet: Boolean(jsonData?.isApiKeySet),
+    companyName: jsonData?.companyName || '',
   });
 
   const isSubmitDisabled = Boolean(!state.apiUrl || (!state.isApiKeySet && !state.apiKey));
@@ -56,12 +60,20 @@ const AppConfig = ({ plugin }: AppConfigProps) => {
     });
   };
 
+  const onChangeCompanyName = (event: ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      companyName: event.target.value.trim(),
+    });
+  }
+
   const onSubmit = () => {
     updatePluginAndReload(plugin.meta.id, {
       enabled,
       pinned,
       jsonData: {
         apiUrl: state.apiUrl,
+        companyName: state.companyName,
         isApiKeySet: true,
       },
       // This cannot be queried later by the frontend.
@@ -101,6 +113,18 @@ const AppConfig = ({ plugin }: AppConfigProps) => {
             value={state?.apiUrl}
             placeholder={`E.g.: http://mywebsite.com/api/v1`}
             onChange={onChangeApiUrl}
+          />
+        </Field>
+        {/* Company Name */}
+        <Field label="Company Name" description="The name of the company" className={s.marginTop}>
+          <Input
+            width={60}
+            id="company-name"
+            data-testid={testIds.appConfig.companyName}
+            label={`Company Name`}
+            value={state?.companyName}
+            placeholder={`E.g.: My Company`}
+            onChange={onChangeCompanyName}
           />
         </Field>
 

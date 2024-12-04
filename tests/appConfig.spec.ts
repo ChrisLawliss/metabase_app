@@ -10,6 +10,8 @@ test('should be possible to save app configuration', async ({ appConfigPage, pag
   await page.getByRole('textbox', { name: 'API Key' }).fill('secret-api-key');
   await page.getByRole('textbox', { name: 'API Url' }).clear();
   await page.getByRole('textbox', { name: 'API Url' }).fill('http://www.my-awsome-grafana-app.com/api');
+  await page.getByRole('textbox', { name: 'Company Name' }).clear();
+  await page.getByRole('textbox', { name: 'Company Name' }).fill('My Company');
 
   // listen for the server response on the saved form
   const saveResponse = appConfigPage.waitForSettingsResponse();
