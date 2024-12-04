@@ -6,7 +6,8 @@ apps:
     org_name: 'ChrisLawliss'
     disabled: false
     jsonData:
-      apiUrl: http://default-url.com
+      apiUrl: https://github.com/ChrisLawliss/metabase_app
       isApiKeySet: true
+      companyName: ChrisLawliss
     secureJsonData:
       apiKey: secret-key
